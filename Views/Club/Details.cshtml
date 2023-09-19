@@ -1,0 +1,57 @@
+﻿@model Club
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container">
+    
+    <h1 class="my-4"></h1>
+    <small></small>
+    
+    <div class="row">
+
+        <div class="col-md-8">
+            <img class="img-fluid" src="@Model.ImageUrl" alt="Imagen del club"/>
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-3">@Model.Title</h3>
+            <p>@Model.Description</p>
+            @if (Model.Address != null)
+            {
+                <h3 class="my-3">Lugar</h3>
+                <ul>
+                    <li>Pais: @Model.Address.Country</li>
+                    <li>Estado: @Model.Address.State</li>
+                    <li>Cuidad: @Model.Address.City</li>
+                    <li>Calle: @Model.Address.Street Codigo postal: @Model.Address.PostalCode</li>
+                </ul>
+            }
+        </div>
+
+    </div>
+
+    <div class="row">
+        <h3 class="my-4">Clubs relacionados</h3>
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="">
+                <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMboH6I8oJipukCG7NuHovMDl7gynSyCb7dg&usqp=CAU" alt="imagen de recomendacion 1" />
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="">
+                <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0TMN_ZAS_aF4I6Iryq0xIYR4QZvtSP9vx_l3HVFFyaOz8Wi3lfZkWwVLyeqLrV05rhs&usqp=CAU" alt="imagen de recomendacion 2" />
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="">
+                <img class="img-fluid" src="https://www.orliman.com/wp-content/uploads/running-10-claves-para-correr-actualmente-870x370.jpg" alt="imagen de recomendacion 3" />
+            </a>
+        </div>
+
+    </div>
+
+</div>

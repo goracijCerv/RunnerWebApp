@@ -19,5 +19,13 @@ namespace RunnerWebApp.Controllers
             List<Club> clubs = _context.Clubs.ToList();
             return  View(clubs);
         }
+
+        public IActionResult Details(int id)
+        {
+            Club? club = _context.Clubs.Include(a => a.Address).FirstOrDefault(c => c.Id == id);
+            if(club != null)
+                return View(club);
+            return BadRequest("No es posible mostrar dicho item");
+        }
     }
 }
