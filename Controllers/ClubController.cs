@@ -1,12 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RunnerWebApp.Data;
+using RunnerWebApp.Models;
 
 namespace RunnerWebApp.Controllers
 {
     public class ClubController : Controller
     {
-        public IActionResult Index()
+        private readonly DataContext _context;
+
+        public ClubController(DataContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public  IActionResult Index()
+        {
+            List<Club> clubs = _context.Clubs.ToList();
+            return  View(clubs);
         }
     }
 }
