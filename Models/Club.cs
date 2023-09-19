@@ -9,9 +9,9 @@ namespace RunnerWebApp.Models
         public string Description { get; set; } = string.Empty;
         public string ImageUrl {  get; set; } = string.Empty;
         public Address? Address { get; set; }
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         public ClubCategory Category { get; set; }
         public AppUser? AppUser { get; set; }
-        public int AppUserId {  get; set; }
+        public int? AppUserId {  get; set; }
     }
 }
