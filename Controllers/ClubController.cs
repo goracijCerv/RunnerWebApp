@@ -1,28 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RunnerWebApp.Data;
+using RunnerWebApp.Interfaces;
 using RunnerWebApp.Models;
 
 namespace RunnerWebApp.Controllers
 {
     public class ClubController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IClubRepository _clubRepository;
 
-        public ClubController(DataContext context)
+        public ClubController(IClubRepository clubRepository)
         {
-            _context = context;
+           _clubRepository = clubRepository;
         }
 
-        public  IActionResult Index()
+        public  async Task<IActionResult> Index()
         {
-            List<Club> clubs = _context.Clubs.ToList();
+            IEnumerable<Club> clubs = await _clubRepository.GetAllAsync();
             return  View(clubs);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            Club? club = _context.Clubs.Include(a => a.Address).FirstOrDefault(c => c.Id == id);
+            Club? club = await _clubRepository.GetByIdAsync(id);
             if(club != null)
                 return View(club);
             return BadRequest("No es posible mostrar dicho item");

@@ -1,10 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using RunnerWebApp.Data;
+using RunnerWebApp.Repository;
+using RunnerWebApp.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IClubRepository, ClubRepository>();
+builder.Services.AddScoped<IRacesRepository, RacesRepository>();
 builder.Services.AddDbContext<DataContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));

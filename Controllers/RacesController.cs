@@ -1,28 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RunnerWebApp.Data;
+using RunnerWebApp.Interfaces;
 using RunnerWebApp.Models;
 
 namespace RunnerWebApp.Controllers
 {
     public class RacesController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IRacesRepository _racesRepository;
 
-        public RacesController(DataContext context)
+        public RacesController(IRacesRepository racesRepository)
         {
-            _context = context;
+            _racesRepository = racesRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Races> races = _context.Races.ToList();
+            IEnumerable<Races> races = await _racesRepository.GetAllAsync();
             return View(races);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            Races? race = _context.Races.Include(a => a.Address ).FirstOrDefault(r => r.Id == id);
+            Races? race = await _racesRepository.GetByIdAsync(id);
             if (race != null)
                 return View(race);
             return BadRequest("Esta carrera no puede ser encontrada");
