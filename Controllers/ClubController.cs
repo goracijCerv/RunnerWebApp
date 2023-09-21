@@ -28,5 +28,21 @@ namespace RunnerWebApp.Controllers
                 return View(club);
             return BadRequest("No es posible mostrar dicho item");
         }
+        
+        public IActionResult Create() {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Club club)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(club);
+            }
+            _clubRepository.Add(club);
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -29,5 +29,20 @@ namespace RunnerWebApp.Controllers
             return BadRequest("Esta carrera no puede ser encontrada");
 
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Races race)
+        {
+            if (!ModelState.IsValid)
+                return View(race);
+
+            _racesRepository.Add(race);
+            return RedirectToAction("Index");
+        }
     }
 }

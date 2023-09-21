@@ -1,0 +1,59 @@
+﻿@using RunnerWebApp.Data.Enum;
+@model Races
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Comparte tu carrera..</h2>
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Title">Nombre de la carrera</label>
+        <input asp-for="Title" type="text" class="form-control" placeholder="El nombre del evento">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Descripcion de la carrera</label>
+        <input asp-for="Description" type="text" class="form-control" placeholder="Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl">Imagen de la carrera</label>
+        <input asp-for="ImageUrl" class="form-control" placeholder="Url de imagen">
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RaceCategory">Categoria de la carrera</label>
+        <select asp-for="RaceCategory" asp-items="@Html.GetEnumSelectList<RaceCategory>();" class="form-control">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="RaceCategory" class="text-danger"></span>
+    </div>
+    <h3>Direcion</h3>
+    <div class="form-group">
+        <label asp-for="Address.Street">Calle</label>
+        <input asp-for="Address.Street" class="form-control" placeholder="Calle donde esta el club">
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address.PostalCode">Codigo Postal </label>
+        <input asp-for="Address.PostalCode" class="form-control" type="number" placeholder="2321">
+        <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address.City">Cuidad</label>
+        <input asp-for="Address.City" class="form-control" placeholder="Cuidad de origen" type="text">
+        <span asp-validation-for="Address.City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address.State">Estado</label>
+        <input asp-for="Address.State" class="form-control" placeholder="Estado de origen" type="text">
+        <span asp-validation-for="Address.State" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address.Country">Pais</label>
+        <input asp-for="Address.Country" class="form-control" placeholder="Pais de origen" type="text">
+        <span asp-validation-for="Address.Country" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
