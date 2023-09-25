@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using RunnerWebApp.Data;
 using RunnerWebApp.Interfaces;
 using RunnerWebApp.Models;
-
+//Los repositorios son para las bases de datos, los servicios son para lo demas
 namespace RunnerWebApp.Repository
 {
     public class ClubRepository : IClubRepository

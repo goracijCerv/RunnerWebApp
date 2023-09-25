@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using RunnerWebApp.Data;
 using RunnerWebApp.Repository;
 using RunnerWebApp.Interfaces;
+using RunnerWebApp.Helpers;
+using RunnerWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IClubRepository, ClubRepository>();
 builder.Services.AddScoped<IRacesRepository, RacesRepository>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddDbContext<DataContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));

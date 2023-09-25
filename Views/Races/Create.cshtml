@@ -1,5 +1,6 @@
 ﻿@using RunnerWebApp.Data.Enum;
-@model Races
+@using RunnerWebApp.Dtos;
+@model RacesCreateDto
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -16,11 +17,6 @@
         <label asp-for="Description">Descripcion de la carrera</label>
         <input asp-for="Description" type="text" class="form-control" placeholder="Description">
         <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ImageUrl">Imagen de la carrera</label>
-        <input asp-for="ImageUrl" class="form-control" placeholder="Url de imagen">
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="RaceCategory">Categoria de la carrera</label>
@@ -54,6 +50,11 @@
         <label asp-for="Address.Country">Pais</label>
         <input asp-for="Address.Country" class="form-control" placeholder="Pais de origen" type="text">
         <span asp-validation-for="Address.Country" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image">Imagen</label>
+        <input asp-for="Image" class="form-control" type="file">
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

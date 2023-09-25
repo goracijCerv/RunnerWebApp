@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RunnerWebApp.Data;
+using RunnerWebApp.Dtos;
 using RunnerWebApp.Interfaces;
 using RunnerWebApp.Models;
 
@@ -9,10 +8,12 @@ namespace RunnerWebApp.Controllers
     public class ClubController : Controller
     {
         private readonly IClubRepository _clubRepository;
+        private readonly IPhotoService _photoService;
 
-        public ClubController(IClubRepository clubRepository)
+        public ClubController(IClubRepository clubRepository, IPhotoService photoService)
         {
-           _clubRepository = clubRepository;
+            _clubRepository = clubRepository;
+            _photoService = photoService;
         }
 
         public  async Task<IActionResult> Index()
@@ -34,14 +35,35 @@ namespace RunnerWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Club club)
+        public async Task<IActionResult> Create(ClubDto clubForm)
         {
-            if(!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                return View(club);
+                var result = await _photoService.AddPhotoAsync(clubForm.Image);
+                var club = new Club
+                {
+                    Title = clubForm.Title,
+                    Description = clubForm.Description,
+                    ImageUrl = result.Url.ToString(),
+                    Category = clubForm.Category,
+                    Address = new Address
+                    {
+                        City = clubForm.Address.City,
+                        Street = clubForm.Address.Street,
+                        State = clubForm.Address.State,
+                        PostalCode = clubForm.Address.PostalCode,
+                        Country = clubForm.Address.Country
+                    }
+                };
+
+                _clubRepository.Add(club);
+                return RedirectToAction("Index");
             }
-            _clubRepository.Add(club);
-            return RedirectToAction("Index");
+            else
+            {
+                ModelState.AddModelError("", "Photo update error");
+                return View(clubForm);
+            }
         }
 
     }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RunnerWebApp.Data;
+using RunnerWebApp.Dtos;
 using RunnerWebApp.Interfaces;
 using RunnerWebApp.Models;
 
@@ -9,10 +8,12 @@ namespace RunnerWebApp.Controllers
     public class RacesController : Controller
     {
         private readonly IRacesRepository _racesRepository;
+        private readonly IPhotoService _photoService;
 
-        public RacesController(IRacesRepository racesRepository)
+        public RacesController(IRacesRepository racesRepository, IPhotoService photoService)
         {
             _racesRepository = racesRepository;
+            _photoService = photoService;
         }
 
         public async Task<IActionResult> Index()
@@ -36,13 +37,35 @@ namespace RunnerWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Races race)
+        public async  Task<IActionResult> Create(RacesCreateDto raceForm)
         {
-            if (!ModelState.IsValid)
-                return View(race);
+            if (ModelState.IsValid)
+            {
+                var result = await _photoService.AddPhotoAsync(raceForm.Image);
 
-            _racesRepository.Add(race);
-            return RedirectToAction("Index");
+                var race = new Races
+                {
+                    Title = raceForm.Title,
+                    Description = raceForm.Description,
+                    ImageUrl = result.Url.ToString(),
+                    Address = new Address
+                    {
+                        City = raceForm.Address.City,
+                        State = raceForm.Address.State,
+                        PostalCode = raceForm.Address.PostalCode,
+                        Street = raceForm.Address.Street,
+                        Country = raceForm.Address.Country
+                    }
+                };
+
+                _racesRepository.Add(race);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "faild upload image");
+                return View(raceForm);
+            }
         }
     }
 }

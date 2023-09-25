@@ -1,12 +1,13 @@
 ﻿@using RunnerWebApp.Data.Enum;
-@model Club
+@using RunnerWebApp.Dtos;
+@model ClubDto
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 <h2>Empieza tu propio club..</h2>
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Create"  enctype="multipart/form-data" >
     <div class="form-group">
         <label asp-for="Title">Nombre de tu club</label>
         <input asp-for="Title" type="text" class="form-control" placeholder="El nombre de tu club">
@@ -16,11 +17,6 @@
         <label asp-for="Description">Descripcion del club</label>
         <input asp-for="Description"  type="text" class="form-control" placeholder="Description">
         <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ImageUrl" >Imagen del club</label>
-        <input asp-for="ImageUrl" class="form-control" placeholder="Url de imagen">
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Category">Categoria del club</label>
@@ -54,6 +50,11 @@
         <label asp-for="Address.Country">Pais</label>
         <input asp-for="Address.Country" class="form-control" placeholder="Pais de origen" type="text">
         <span asp-validation-for="Address.Country" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image">Imagen del club</label>
+        <input asp-for="Image" class="form-control" type="file">
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
