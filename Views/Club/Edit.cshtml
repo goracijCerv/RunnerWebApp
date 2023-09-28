@@ -1,0 +1,62 @@
+﻿@using RunnerWebApp.Dtos;
+@using RunnerWebApp.Data.Enum;
+@model ClubEditDto
+<h2>Empieza tu propio club..</h2>
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" value="AddressId" id="AddressId">
+    <div class="form-group">
+        <label asp-for="Title">Nombre de tu club</label>
+        <input asp-for="Title" type="text" class="form-control" placeholder="El nombre de tu club">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Descripcion del club</label>
+        <input asp-for="Description" type="text" class="form-control" placeholder="Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Category">Categoria del club</label>
+        <select asp-for="Category" asp-items="@Html.GetEnumSelectList<ClubCategory>();">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+    <h3>Direcion</h3>
+    <div class="form-group">
+        <label asp-for="Address.Street">Calle</label>
+        <input asp-for="Address.Street" class="form-control" placeholder="Calle donde esta el club">
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address.PostalCode">Codigo Postal </label>
+        <input asp-for="Address.PostalCode" class="form-control" type="number" placeholder="2321">
+        <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address.City">Cuidad</label>
+        <input asp-for="Address.City" class="form-control" placeholder="Cuidad de origen" type="text">
+        <span asp-validation-for="Address.City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address.State">Estado</label>
+        <input asp-for="Address.State" class="form-control" placeholder="Estado de origen" type="text">
+        <span asp-validation-for="Address.State" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address.Country">Pais</label>
+        <input asp-for="Address.Country" class="form-control" placeholder="Pais de origen" type="text">
+        <span asp-validation-for="Address.Country" class="text-danger"></span>
+    </div>
+    <h4>Imagen Actual</h4>
+    <div class="form-group">
+        <img class="card-img-top" src="Url" alt="Imagen del club" width="100%" height="225">
+    </div>
+    <p>Cambiar de imagen</p>
+    <div class="form-group">
+        <label asp-for="Image">Imagen del club</label>
+        <input asp-for="Image" class="form-control" type="file">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

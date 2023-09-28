@@ -2,6 +2,7 @@
 using RunnerWebApp.Dtos;
 using RunnerWebApp.Interfaces;
 using RunnerWebApp.Models;
+using System.Security.Claims;
 
 namespace RunnerWebApp.Controllers
 {
@@ -66,5 +67,77 @@ namespace RunnerWebApp.Controllers
             }
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            var club = await _clubRepository.GetByIdAsync(id);
+            if (club == null)
+                return BadRequest("the club doesnt exits");
+
+            var clubForm = new ClubEditDto
+            {
+                Title = club.Title,
+                Description = club.Description,
+                Url = club.ImageUrl,
+                Category = club.Category,
+                Address = club.Address,
+                AddressId = (int)club.AddressId
+            };
+            return View(clubForm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>Edit(int id, ClubEditDto clubForm)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "There is something wrong");
+                return View(clubForm);
+            }
+
+            var club = await _clubRepository.GetByIdAsync(id);
+            if (club == null)
+                return BadRequest("Something went wrong");
+
+            if(clubForm.Image == null)
+            {
+                club.Title = clubForm.Title;
+                club.Description = clubForm.Description;
+                club.Category = clubForm.Category;
+                club.ImageUrl = clubForm.Url;
+                club.Address.City = clubForm.Address.City;
+                club.Address.Street = clubForm.Address.Street;
+                club.Address.State = clubForm.Address.State;
+                club.Address.PostalCode = clubForm.Address.PostalCode;
+                club.Address.Country = clubForm.Address.Country;
+
+                _clubRepository.Update(club);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                try
+                {
+                    await _photoService.DelateImageAsync(club.ImageUrl);
+                }
+                catch(Exception e)
+                {
+                    return BadRequest(e);
+                }
+
+                var photoResult = await _photoService.AddPhotoAsync(clubForm.Image);
+                club.Title = clubForm.Title;
+                club.Description = clubForm.Description;
+                club.Category = clubForm.Category;
+                club.ImageUrl = photoResult.Url.ToString();
+                club.Address.City = clubForm.Address.City;
+                club.Address.Street = clubForm.Address.Street;
+                club.Address.State = clubForm.Address.State;
+                club.Address.PostalCode = clubForm.Address.PostalCode;
+                club.Address.Country = clubForm.Address.Country;
+
+                _clubRepository.Update(club);
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
