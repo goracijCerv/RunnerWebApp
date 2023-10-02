@@ -3,7 +3,8 @@
 @model ClubEditDto
 <h2>Empieza tu propio club..</h2>
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
-    <input type="hidden" value="AddressId" id="AddressId">
+    <input asp-for=AddressId type="hidden"  id="AddressId">
+    <input type="hidden" asp-for="Url"  id="Url">
     <div class="form-group">
         <label asp-for="Title">Nombre de tu club</label>
         <input asp-for="Title" type="text" class="form-control" placeholder="El nombre de tu club">
@@ -49,7 +50,7 @@
     </div>
     <h4>Imagen Actual</h4>
     <div class="form-group">
-        <img class="card-img-top" src="Url" alt="Imagen del club" width="100%" height="225">
+        <img class="card-img-top" src="@Model.Url" alt="Imagen del club" width="100%" height="225">
     </div>
     <p>Cambiar de imagen</p>
     <div class="form-group">

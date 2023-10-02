@@ -82,6 +82,7 @@ namespace RunnerWebApp.Controllers
                 Address = club.Address,
                 AddressId = (int)club.AddressId
             };
+
             return View(clubForm);
         }
 
