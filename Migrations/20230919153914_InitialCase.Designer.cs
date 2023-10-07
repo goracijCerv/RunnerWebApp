@@ -10,7 +10,7 @@ using RunnerWebApp.Data;
 
 namespace RunnerWebApp.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230919153914_InitialCase")]
     partial class InitialCase
     {

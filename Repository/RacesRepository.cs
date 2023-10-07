@@ -7,9 +7,9 @@ namespace RunnerWebApp.Repository
 {
     public class RacesRepository : IRacesRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public RacesRepository(DataContext context)
+        public RacesRepository(ApplicationDbContext context)
         {
             _context = context;
         }

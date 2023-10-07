@@ -8,9 +8,9 @@ namespace RunnerWebApp.Repository
 {
     public class ClubRepository : IClubRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ClubRepository(DataContext context)
+        public ClubRepository(ApplicationDbContext context)
         {
             _context = context;
         }

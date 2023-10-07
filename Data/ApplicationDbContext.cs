@@ -3,9 +3,9 @@ using RunnerWebApp.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace RunnerWebApp.Data
 {
-    public class DataContext : IdentityDbContext<AppUser>
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
         public DbSet<Races> Races { get; set; }

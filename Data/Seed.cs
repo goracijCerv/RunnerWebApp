@@ -1,4 +1,5 @@
-﻿using RunnerWebApp.Data.Enum;
+﻿using Microsoft.AspNetCore.Identity;
+using RunnerWebApp.Data.Enum;
 using RunnerWebApp.Models;
 
 namespace RunnerWebApp.Data
@@ -9,7 +10,7 @@ namespace RunnerWebApp.Data
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<DataContext>();
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
                 context.Database.EnsureCreated();
 
@@ -120,7 +121,7 @@ namespace RunnerWebApp.Data
             }
         }
 
-        /*public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
@@ -134,14 +135,14 @@ namespace RunnerWebApp.Data
 
                 //Users
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
-                string adminUserEmail = "teddysmithdeveloper@gmail.com";
+                string adminUserEmail = "goracijpcervantilia@gmail.com";
 
                 var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
                 if (adminUser == null)
                 {
                     var newAdminUser = new AppUser()
                     {
-                        UserName = "teddysmithdev",
+                        UserName = "horasdev",
                         Email = adminUserEmail,
                         EmailConfirmed = true,
                         Address = new Address()
@@ -176,6 +177,6 @@ namespace RunnerWebApp.Data
                     await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
                 }
             }
-        }*/
+        }
     }
 }
